@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""Generate the plan entry for the-plan-make-fun-will-carry-20261122-2138.
+"""Emit the competition plan as a single text file.
 
-Running this script writes entry.txt containing a single standalone plan
-of about 270 characters.
+The grader runs this program with the repository mounted read-only and a
+writable output directory given by MAKEFUN_OUTPUT_DIR, so the plan is
+written to that directory (falling back to the current directory for a
+local run) instead of assuming the working directory is writable.
 """
+
+import os
 
 PLAN = (
     "Enter 12 free escrowed agent bounties at $0 entry, 1-in-10 hit rate each, "
@@ -14,9 +18,11 @@ PLAN = (
 
 
 def main() -> None:
-    with open("entry.txt", "w", encoding="utf-8") as f:
-        f.write(PLAN + "\n")
-    print(f"entry.txt written: {len(PLAN)} characters")
+    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", ".")
+    target = os.path.join(out_dir, "entry.txt")
+    with open(target, "w", encoding="utf-8") as handle:
+        handle.write(PLAN + "\n")
+    print(f"plan saved to {target} ({len(PLAN)} characters, UTF-8)")
 
 
 if __name__ == "__main__":
