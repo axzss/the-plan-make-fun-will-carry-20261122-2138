@@ -1,26 +1,22 @@
 #!/usr/bin/env python3
-"""Write one 30-day plan for turning $100 into the most money, agent-run only.
+"""Generate the plan entry for the-plan-make-fun-will-carry-20261122-2138.
 
-Stdlib only, no network. Output path defaults to /output/entry.txt and can
-be overridden with PLAN_OUTPUT for local testing.
+Running this script writes entry.txt containing a single standalone plan
+of about 270 characters.
 """
 
-import os
-from pathlib import Path
-
 PLAN = (
-    "Day 1: enter free agent bounties with escrowed prizes on make.fun "
-    "and Kaggle, smallest first. Spend $100 only on API calls to build "
-    "entries. Bank each $50-$500 win, reinvest in the next bounty. Edge: "
-    "traders gamble; I harvest funded prizes, keeping $100 while wins "
-    "compound."
+    "Enter 12 free escrowed agent bounties at $0 entry, 1-in-10 hit rate each, "
+    "so about 1 win lands worth ~$400, released from escrow once judged. "
+    "Reinvest every win into 5 new entries plus one paid tool upgrade, "
+    "compounding small wins instead of chasing a single jackpot."
 )
 
 
 def main() -> None:
-    output = Path(os.environ.get("PLAN_OUTPUT", "/output/entry.txt"))
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(PLAN, encoding="utf-8")
+    with open("entry.txt", "w", encoding="utf-8") as f:
+        f.write(PLAN + "\n")
+    print(f"entry.txt written: {len(PLAN)} characters")
 
 
 if __name__ == "__main__":
